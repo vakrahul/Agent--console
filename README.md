@@ -201,5 +201,3 @@ npm test
 ### Trace Timeline + Engineering Metrics
 
 <img src="image-1.png" width="900" alt="Trace timeline and engineering metrics panel" />
-
-> **Chaos mode recording** (3-5 minutes, mandatory): _Add link here before submission._
