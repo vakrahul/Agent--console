@@ -8,16 +8,16 @@ Every WebSocket frame flows through a strict, unidirectional pipeline. UI compon
 flowchart TD
     WS["WebSocket Frame\n(raw JSON string)"]
     PP["Protocol Parser\nparser.ts\n- JSON.parse\n- type + seq validation\n- field type guards"]
-    SB["Sequence Buffer\nsequence-buffer.ts\n- pendingEvents: Map<seq, event>\n- processedEvents: Set<seq>\n- gap detection + drain"]
+    SB["Sequence Buffer\nsequence-buffer.ts\n- pendingEvents: Map(seq, event)\n- processedEvents: Set(seq)\n- gap detection + drain"]
     EJ["Event Journal\nevent-journal.ts\n- append-only log\n- seqIndex dedup\n- compactTokens()"]
-    EP["Event Processor\nevent-processor.ts\n- pure function: state → state\n- token group accumulation\n- idempotent tool cards"]
+    EP["Event Processor\nevent-processor.ts\n- pure function: state to state\n- token group accumulation\n- idempotent tool cards"]
     RS["React State\nAppState\n- streams Map\n- toolCalls Map\n- contexts Map\n- timeline array"]
     UI["React UI\nAgentConsole.tsx\n- StreamView\n- TimelineRow\n- ContextInspector\n- MetricsPanel"]
 
     WS -->|raw string| PP
-    PP -->|ParseResult ok/err| SB
-    SB -->|ordered ServerMessage[]| EJ
-    EJ -->|JournalEntry[]| EP
+    PP -->|ParseResult ok or err| SB
+    SB -->|ordered ServerMessages| EJ
+    EJ -->|JournalEntries| EP
     EP -->|AppState immutable| RS
     RS -->|React render| UI
 ```
