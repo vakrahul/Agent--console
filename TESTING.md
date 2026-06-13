@@ -101,3 +101,5 @@ flowchart LR
 ```
 
 Any `"verdict": "violation"` entry means a protocol requirement was missed.
+
+<img src="image-2.png" width="900" alt="Test results — all passing" />
